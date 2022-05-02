@@ -1,5 +1,3 @@
-# 4. Probar creando dos cuentas cada una con un saldo de 5000 y transferir el total de una
-# cuenta a la otra.
 
 # 1. Crear la clase CuentaBancaria. (1 Punto)
 class CuentaBancaria
@@ -13,12 +11,14 @@ class CuentaBancaria
         @nro_cuenta = nro_cuenta
         @saldo = saldo
     end
-# 3. Crear el método transferir en la clase Cuenta que reciba un monto y otra cuenta. Este
-# método restará del saldo actual el monto y aumentará el saldo de la otra cuenta en el mismo
-# monto. (1 Punto)
+    # 3. Crear el método transferir en la clase Cuenta que reciba un monto y otra cuenta. Este
+    # método restará del saldo actual el monto y aumentará el saldo de la otra cuenta en el mismo
+    # monto. (1 Punto)
     def transferir(monto, cuenta)
+        @cuenta = cuenta
         @monto = monto
         @saldo = @saldo - @monto
+        puts "Se han transferido $#{@monto} a la cuenta #{@cuenta} "
     end
 end
 
@@ -28,12 +28,24 @@ class Usuario
 # menos 1 cuenta bancaria. (1 Punto)
     def initialize(nombre, ctaBancaria)
         @nombre = nombre
-        @ctaBancaria = ctaBancaria
+        @ctaBancaria = ctaBancaria.nro_cuenta
+        @saldoTotal = ctaBancaria.saldo
     end
 
     # 6. Crear el método saldo total que devuelva la suma de todos los saldos del usuario. (1
     # Punto)
     def saldo_total 
-
+        puts "El saldo total de la cuenta #{@ctaBancaria} perteneciente a #{@nombre} es: #{@saldoTotal}"
     end
 end
+
+# 4. Probar creando dos cuentas cada una con un saldo de 5000 y transferir el total de una
+# cuenta a la otra.
+miCuenta = CuentaBancaria.new("Chile", "225", 5000)
+miCuenta.transferir(5000, '236')
+miUsuario = Usuario.new('Javier', miCuenta)
+miUsuario.saldo_total
+suCuenta = CuentaBancaria.new("Falabella", '236', 5000)
+suCuenta.transferir(-5000, '225')
+suUsuario = Usuario.new('Patricia', suCuenta)
+suUsuario.saldo_total
